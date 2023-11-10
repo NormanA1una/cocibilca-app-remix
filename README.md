@@ -14,7 +14,7 @@ This starts your app in development mode, rebuilding assets on file changes.
 
 ## Deployment
 
-First, build your app for production:
+First, build your app for productionn:
 
 ```sh
 npm run build
