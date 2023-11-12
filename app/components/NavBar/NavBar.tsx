@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link, NavLink } from "@remix-run/react";
 import type { CustomFlowbiteTheme } from "flowbite-react";
 import { Navbar, Flowbite } from "flowbite-react";
 
@@ -26,7 +26,7 @@ const customTheme: CustomFlowbiteTheme = {
       base: "flex items-center",
     },
     collapse: {
-      base: "w-full md:block md:w-auto",
+      base: "w-full md:block md:w-auto md:hidden",
       list: "mt-4 flex flex-col md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium",
       hidden: {
         on: "hidden",
@@ -53,7 +53,7 @@ const customTheme: CustomFlowbiteTheme = {
 
 export default function NavBar() {
   return (
-    <div>
+    <div className="md:pl-[256px]">
       <Flowbite theme={{ theme: customTheme }}>
         <Navbar fluid rounded>
           <Navbar.Brand as={Link} href="https://flowbite-react.com">
@@ -63,20 +63,43 @@ export default function NavBar() {
               alt="Flowbite React Logo"
             />
             <span className="self-center whitespace-nowrap text-white text-xl font-semibold dark:text-white">
-              Flowbite React
+              Licorería Cocibolca
             </span>
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse>
-            <Navbar.Link href="#" active>
-              Home
-            </Navbar.Link>
-            <Navbar.Link as={Link} href="#">
-              About
-            </Navbar.Link>
-            <Navbar.Link href="#">Services</Navbar.Link>
-            <Navbar.Link href="#">Pricing</Navbar.Link>
-            <Navbar.Link href="#">Contact</Navbar.Link>
+            <NavLink
+              to={"suppliers"}
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-cyan-700 font-bold dark:text-white md:bg-transparent md:text-cyan-500"
+                  : "border-b border-gray-100  text-white hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:hover:text-cyan-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+              }
+            >
+              <Link to={"suppliers"}>Suppliers</Link>
+            </NavLink>
+
+            <NavLink
+              to={"products"}
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-cyan-700 font-bold dark:text-white md:bg-transparent md:text-cyan-500"
+                  : "border-b border-gray-100  text-white hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:hover:text-cyan-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+              }
+            >
+              <Link to={"products"}>Products</Link>
+            </NavLink>
+
+            <NavLink
+              to={"users"}
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-cyan-700 font-bold dark:text-white md:bg-transparent md:text-cyan-500"
+                  : "border-b border-gray-100  text-white hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:hover:text-cyan-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+              }
+            >
+              <Link to={"users"}>Users</Link>
+            </NavLink>
           </Navbar.Collapse>
         </Navbar>
       </Flowbite>
