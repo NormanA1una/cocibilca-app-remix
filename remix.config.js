@@ -2,6 +2,7 @@
 export default {
   serverDependenciesToBundle: [/^react-icons/],
   ignoredRouteFiles: ["**/.*"],
+  
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
   // publicPath: "/build/",

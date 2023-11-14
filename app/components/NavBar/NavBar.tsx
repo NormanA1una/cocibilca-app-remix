@@ -5,7 +5,7 @@ import { Navbar, Flowbite } from "flowbite-react";
 const customTheme: CustomFlowbiteTheme = {
   navbar: {
     root: {
-      base: "bg-black px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4",
+      base: "bg-black px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 fixed top-0 right-0 left-0 ml-[256px]",
       rounded: {
         on: "",
         off: "",
@@ -56,11 +56,11 @@ export default function NavBar() {
     <div className="md:pl-[256px]">
       <Flowbite theme={{ theme: customTheme }}>
         <Navbar fluid rounded>
-          <Navbar.Brand as={Link} href="https://flowbite-react.com">
+          <Navbar.Brand>
             <img
-              src="images\volcano.png"
+              src="/images/volcano.png"
               className="mr-3 h-6 sm:h-9"
-              alt="Flowbite React Logo"
+              alt="Volcano Logo"
             />
             <span className="self-center whitespace-nowrap text-white text-xl font-semibold dark:text-white">
               Licorería Cocibolca
