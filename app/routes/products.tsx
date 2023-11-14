@@ -7,5 +7,9 @@ export const loader = async ({}: LoaderFunctionArgs) => {
 
 export default function Products() {
   const {} = useLoaderData<typeof loader>();
-  return <h1 className="md:pl-[260px] md:pt-4">This is a page of products</h1>;
+  return (
+    <div className="h-screen md:pl-[272px] md:pt-[72px] md:pr-4">
+      <h1 className="">This is a page of products</h1>
+    </div>
+  );
 }
