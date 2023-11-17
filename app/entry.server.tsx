@@ -15,8 +15,13 @@ import createEmotionCache from "./createEmotionCache";
 import createEmotionServer from "@emotion/server/create-instance";
 import { ServerStyleContext } from "./context";
 import { CacheProvider } from "@emotion/react";
+import { env } from "./enviroment.server";
 
 const ABORT_DELAY = 5_000;
+
+export const envClient = {
+  test: env.PUBLIC_FIREBASE_API_KEY,
+};
 
 export default function handleRequest(
   request: Request,
@@ -53,7 +58,7 @@ export default function handleRequest(
     headers: responseHeaders,
   });
 
-  return isbot(request.headers.get("user-agent"))
+  /* return isbot(request.headers.get("user-agent"))
     ? handleBotRequest(
         request,
         responseStatusCode,
@@ -65,7 +70,7 @@ export default function handleRequest(
         responseStatusCode,
         responseHeaders,
         remixContext
-      );
+      ); */
 }
 
 function handleBotRequest(

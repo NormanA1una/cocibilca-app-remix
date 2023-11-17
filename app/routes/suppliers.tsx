@@ -1,8 +1,13 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
+import { env } from "~/enviroment.server";
 
-export const loader = async ({}: LoaderFunctionArgs) => {
+const mySwal = withReactContent(Swal);
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const apiUrl = "http://localhost:8000/";
   try {
     const res = await axios.get(`${apiUrl}supplier`);
@@ -15,6 +20,27 @@ export const loader = async ({}: LoaderFunctionArgs) => {
 
 export default function Suppliers() {
   const supplierData = useLoaderData<typeof loader>() as SupplierForm[];
+
+  /* const deleteSwal = (proveedor: string) => {
+    mySwal
+      .fire({
+        title: "SE ELIMINARÁ UN PROVEEDOR",
+        text: `Estas seguro que quiere eliminar a ${proveedor}`,
+        icon: "warning",
+        showCancelButton: true,
+        showConfirmButton: true,
+        allowOutsideClick: false,
+      })
+      .then((res) => {
+        if (res.value) {
+          const form = document.getElementById("borrarProveedor");
+
+          if (form) {
+            console.log(form);
+          }
+        }
+      });
+  }; */
 
   return (
     <div className="h-screen md:pl-[272px] md:pt-[72px] md:pr-4">
@@ -62,16 +88,20 @@ export default function Suppliers() {
                 >
                   {supplier.id}
                 </th>
+
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   {supplier.nombreProveedor}
                 </th>
+
                 <td className="px-6 py-4">{supplier.tipoDeProducto}</td>
+
                 <td className="px-6 py-4">
-                  {supplier.estado ? "Activo" : "inactivo"}
+                  {supplier.estado ? "Activo" : "Inactivo"}
                 </td>
+
                 <td className="px-6 py-4 h-[85px] w-[172px]">
                   <img
                     src={supplier.logo}
@@ -79,6 +109,40 @@ export default function Suppliers() {
                     width={50}
                     height={50}
                   />
+                </td>
+
+                <td>
+                  <div className="flex">
+                    <Form action={`${supplier.id}`} className="mr-2">
+                      <button
+                        type="submit"
+                        className="border p-2 rounded-md shadow"
+                      >
+                        ✏️
+                      </button>
+                    </Form>
+
+                    <Form
+                      id="borrarProveedor"
+                      action={`${supplier.id}/destroy`}
+                      method="post"
+                      onSubmit={(event) => {
+                        const response = confirm(
+                          "Please confirm you want to delete this record."
+                        );
+                        if (!response) {
+                          event.preventDefault();
+                        }
+                      }}
+                    >
+                      <button
+                        type="submit"
+                        className="border p-2 rounded-md shadow"
+                      >
+                        🗑️
+                      </button>
+                    </Form>
+                  </div>
                 </td>
               </tr>
             ))}

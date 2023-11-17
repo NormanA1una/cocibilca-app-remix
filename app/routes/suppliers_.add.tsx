@@ -1,9 +1,9 @@
-import { Form } from "@remix-run/react";
+import { Form, isRouteErrorResponse, useRouteError } from "@remix-run/react";
 import { FormControl, Switch, Progress } from "@chakra-ui/react";
 import { useState } from "react";
 import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
 import { message } from "antd";
-import { storage } from "firebaseConfig";
+import { storage } from "firebaseConfig.server";
 import {
   deleteObject,
   getDownloadURL,
@@ -24,15 +24,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     nombreImage: form.get("nombreImage"),
   };
 
-  console.log(body);
-
   try {
     const res = await axios.post(`${apiUrl}supplier`, body);
-    /* const res = await fetch(`${apiUrl}supplier`, {
-      method: "POST",
-      body: JSON.stringify(body),
-    }); */
-
     return redirect("/suppliers");
   } catch (error) {
     console.log("Error creating supplier:", error);
